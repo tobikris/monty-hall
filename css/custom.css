@@ -1,0 +1,162 @@
+/*
+    Document   : custom
+    Created on : 23.04.2013, 21:23:07
+    Author     : Tobias Krischer <tobi@tobiworlds.de>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*.icon-success {
+    position: relative;
+    top: 0.23em;
+    left: 0.1em;
+}*/
+
+.meta-list {
+    padding: 0;
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.meta-list > li {
+    margin: 0;
+    padding: 0;
+}
+
+.widget-container {
+    min-height: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.widget-container-well {
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+}
+.widget-container blockquote {
+    border-color: #ddd;
+    border-color: rgba(0, 0, 0, 0.15);
+}
+.widget-container-large {
+    padding: 20px;
+}
+.widget-container-small {
+    padding: 9px;
+}
+.widget-sidebar {
+    padding: 9px 0;
+}
+
+/* Calendar */
+
+.widget-calendar {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding: 0;
+}
+.widget-calendar caption {
+    padding: 0 0 10px;
+}
+.widget-calendar th, .widget-calendar td {
+    text-align: center;
+    background: rgba(0, 0, 0, .05);
+    padding: 5px;
+}
+.widget-calendar td {
+    background: transparent;
+}
+.widget-calendar td, table.widget-calendar th {
+    padding: 3px 0;
+}
+.widget-calendar #today {
+    background: rgb(0, 109, 204);
+    color: white;
+}
+.widget-calendar .other-month {
+    color: grey;
+}
+
+.navbar-fixed-top + .navbar-fixed-top {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+@media (min-width: 980px)
+{
+    body
+    {
+        padding-top: 60px;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 1200px)
+{
+    .label-titlebar
+    {
+        position: relative;
+        top: -0.25em;
+    }
+
+    .badge-titlebar
+    {
+        position: relative;
+        top: -0.1em;
+    }
+
+    .dropdown-menu span
+    {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 20px;
+        color: #333;
+        white-space: nowrap;
+    }
+
+}
+
+footer > p {
+    float: left;
+    margin-right: 1em;
+}
+
+.chart {
+    float: left;
+    margin: 10px;
+}
+
+.chart-bottom-heading {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.chart-percentage,
+.chart-label {
+    text-align: center;
+    color: #333;
+    font-weight: 100;
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+.chart-percentage > p + p {
+    float: left;
+}
+
+.icon-10x {
+    font-size:10em
+}
+.icon-10x.icon-border {
+    border-width:10px;
+    -webkit-border-radius:12px;
+    -moz-border-radius:12px;
+    border-radius:12px
+}

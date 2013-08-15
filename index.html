@@ -1,0 +1,211 @@
+<html>
+    <head>
+        <title>Tills erste PHP seite</title>
+        <meta charset="utf-8">
+        <link href="css/flatstrap.min.css" type="text/css" rel="stylesheet" />
+        <link href="css/flatstrap-responsive.min.css" type="text/css" rel="stylesheet" />
+        <link href="css/custom.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">Ziegenproblem</a>
+                    <div class="nav-collapse collapse">
+                        <p class="navbar-text pull-right">
+
+                        </p>
+                        <ul class="nav">
+                            <li class="active"><a href="#">Home</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div id="alerts">
+                        <div class="alert alert-info" id="rules" style="display:none;">
+                            <strong>Willkommen!</strong> Hinter einer Tür ist ein Auto, hinter den anderen beiden eine Ziege. Klicken Sie auf eine Tür.
+                        </div>
+                        <div class="alert alert-success" id="choice" style="display:none;">
+                            <strong id="choice-present"></strong> Nun wird eine Tür aufgedeckt.
+                            Wollen Sie Ihre Wahl noch einmal ändern? Klicken Sie wieder auf eine der geschlossenen Türen!
+                        </div>
+                        <div class="alert alert-error" id="choice-error" style="display:none;">
+                            Klicken Sie auf eine der <strong>geschlossenen</strong> Türen!
+                        </div>
+                        <div class="alert alert-success" id="car" style="display:none;">
+                            <strong>Gewonnen!</strong> Hinter Ihrer Tür ist ein Auto, hinter den anderen beiden eine Ziege. Spielen Sie nochmal!
+                        </div>
+                        <div class="alert alert-error" id="goat" style="display:none;">
+                            <strong>Verloren!</strong> Hinter Ihrer Tür ist eine Ziege, das Auto hinter einer anderen. Spielen Sie nochmal!
+                        </div>
+                    </div>
+                    <ul class="thumbnails">
+                        <li class="span4">
+                            <a href="#" class="thumbnail" id="1">
+                                <img src="tür.png" alt="">
+                                <span class="label">?</span>
+                            </a>
+                        </li>
+                        <li class="span4">
+                            <a href="#" class="thumbnail" id="2">
+                                <img src="tür.png" alt="">
+                                <span class="label">?</span>
+                            </a>
+                        </li>
+                        <li class="span4">
+                            <a href="#" class="thumbnail" id="3">
+                                <img src="tür.png" alt="">
+                                <span class="label">?</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <span>Nach den bisherigen Spielen ist es besser zu <span id="changewins" class="well well-small text-info">&nbsp;</span></span>
+                </div>
+                <table class="span6 table table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Auto</th><th>Wahl 1</th><th>Wahl 2</th><th>Wechsel?</th><th>Sieg?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <script src="js/jquery.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script>
+                $(function() {
+                    changeWon = 0;
+                    changeLost = 0;
+                    stayWon = 0;
+                    stayLost = 0;
+                    function calcBetter(change) {
+                        //console.log(change[i]['change'] + '--' + change[i]['win'])
+                        if (change['change'] == true && change['win'] == true) {
+                            changeWon++;
+                        } else if (change['change'] == true && change['win'] == false) {
+                            changeLost++;
+                        } else if (change['change'] == false && change['win'] == true) {
+                            stayWon++;
+                        } else if (change['change'] == false && change['win'] == false) {
+                            stayLost++;
+                        }
+
+                        //console.log(changeWon + ':' + changeLost)
+                        //console.log(stayWon + ':' + stayLost)
+                        console.log((changeWon / changeLost));
+                        console.log((stayWon / stayLost));
+                        console.log((changeWon / changeLost) > (stayWon / stayLost))
+                        better = ((changeWon / changeLost) > (stayWon / stayLost)) ? 'wechseln' : 'bleiben';
+                        console.log(better)
+                        return better;
+                    }
+                    playcount = 0;
+                    changewins = [];
+                    function playGame() {
+                        console.log('Spiele: ' + playcount);
+                        playcount++;
+                        if (playcount > 1) {
+                            $('#1 img').css('opacity', '1');
+                            $('#1 span').removeClass('label-important label-success').html('?');
+                            $('#2 img').css('opacity', '1');
+                            $('#2 span').removeClass('label-important label-success').html('?');
+                            $('#3 img').css('opacity', '1');
+                            $('#3 span').removeClass('label-important label-success').html('?');
+                        } else {
+                            $('#rules').show();
+                        }
+                        var clickcount = 0;
+                        var doors = [];
+                        var car = Math.floor((Math.random() * 3) + 1);
+                        doors[car] = 'car';
+                        doors['car'] = car;
+                        if (car == 1) {
+                            doors[2] = 'goat';
+                            doors[3] = 'goat';
+                            doors['goat1'] = 2;
+                            doors['goat2'] = 3;
+                        } else if (car == 2) {
+                            doors[1] = 'goat';
+                            doors[3] = 'goat';
+                            doors['goat1'] = 1;
+                            doors['goat2'] = 3;
+                        } else if (car == 3) {
+                            doors[1] = 'goat';
+                            doors[2] = 'goat';
+                            doors['goat1'] = 1;
+                            doors['goat2'] = 2;
+                        }
+                        //console.log('Auto hinter Tür ' + car);
+                        $('.thumbnail').click(function(e) {
+                            $('#car').hide();
+                            $('#goat').hide();
+                            if (clickcount === 0) {
+                                clickcount++;
+                                $('#rules').hide();
+                                var choice1 = $(this).attr('id');
+                                //console.log('Wahl1 ' + choice1);
+                                do {
+                                    var turn = Math.floor((Math.random() * 3) + 1);
+                                } while (turn == car || turn == choice1);
+                                //console.log('Aufdecken: ' + turn);
+                                $('#choice-present').html('Sie haben Tür ' + choice1 + ' gewählt!');
+                                $('#choice').show();
+                                $('#' + turn + ' img').css('opacity', '0.4');
+                                $('#' + turn + ' span').addClass('label-important').html('Ziege');
+                                $('.thumbnail').click(function(e) {
+                                    if (clickcount === 1) {
+                                        var choice2 = $(this).attr('id');
+                                        //console.log('Wahl2 ' + choice2);
+                                        if (turn != choice2) {
+                                            if (clickcount === 1) {
+                                                clickcount++;
+                                                $('#choice').hide();
+                                                $('#choice-error').hide();
+                                                if (choice2 == doors['car']) {
+                                                    $('#car').show();
+                                                    var win = true;
+                                                    var trcls = 'success';
+                                                } else {
+                                                    $('#goat').show();
+                                                    var win = false;
+                                                    var trcls = 'error';
+                                                }
+                                                $('#' + car + ' span').addClass('label-success').html('Auto');
+                                                $('#' + doors['goat1'] + ' img').css('opacity', '0.4');
+                                                $('#' + doors['goat1'] + ' span').addClass('label-important').html('Ziege');
+                                                $('#' + doors['goat2'] + ' img').css('opacity', '0.4');
+                                                $('#' + doors['goat2'] + ' span').addClass('label-important').html('Ziege');
+                                                var change = (choice1 != choice2) ? true : false;
+                                                $('tbody').append('<tr class=' + trcls + '><td>' + playcount + '</td><td>' + car + '</td><td>' + choice1 + '</td><td>' + choice2 + '</td><td>' + (change ? 'ja' : 'nein') + '</td><td>' + (win ? 'ja' : 'nein') + '</td></tr>');
+                                                var changewin = [];
+                                                changewin['change'] = change;
+                                                changewin['win'] = win;
+                                                changewins.push(changewin);
+                                                //$('#changewins').html(calcBetter(changewin));
+                                                playGame();
+                                            }
+                                        } else {
+                                            $('#choice').hide();
+                                            $('#choice-error').show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    playGame();
+                });
+            </script>
+    </body>
+</html>
