@@ -86,27 +86,21 @@
             <script>
                 $(function() {
                     changeWon = 0;
-                    changeLost = 0;
                     stayWon = 0;
-                    stayLost = 0;
                     function calcBetter(change) {
                         //console.log(change[i]['change'] + '--' + change[i]['win'])
                         if (change['change'] == true && change['win'] == true) {
                             changeWon++;
                         } else if (change['change'] == true && change['win'] == false) {
-                            changeLost++;
+                            stayWon++;
                         } else if (change['change'] == false && change['win'] == true) {
                             stayWon++;
                         } else if (change['change'] == false && change['win'] == false) {
-                            stayLost++;
+                            changeWon++;
                         }
 
-                        //console.log(changeWon + ':' + changeLost)
-                        //console.log(stayWon + ':' + stayLost)
-                        console.log((changeWon / changeLost));
-                        console.log((stayWon / stayLost));
-                        console.log((changeWon / changeLost) > (stayWon / stayLost))
-                        better = ((changeWon / changeLost) > (stayWon / stayLost)) ? 'wechseln' : 'bleiben';
+
+                        better = (changeWon > stayWon) ? 'wechseln' : 'bleiben';
                         console.log(better)
                         return better;
                     }
@@ -192,7 +186,7 @@
                                                 changewin['change'] = change;
                                                 changewin['win'] = win;
                                                 changewins.push(changewin);
-                                                //$('#changewins').html(calcBetter(changewin));
+                                                $('#changewins').html(calcBetter(changewin));
                                                 playGame();
                                             }
                                         } else {
