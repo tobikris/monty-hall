@@ -181,7 +181,7 @@
                                                 $('#' + doors['goat2'] + ' img').css('opacity', '0.4');
                                                 $('#' + doors['goat2'] + ' span').addClass('label-important').html('Ziege');
                                                 var change = (choice1 != choice2) ? true : false;
-                                                $('tbody').append('<tr class=' + trcls + '><td>' + playcount + '</td><td>' + car + '</td><td>' + choice1 + '</td><td>' + choice2 + '</td><td>' + (change ? 'ja' : 'nein') + '</td><td>' + (win ? 'ja' : 'nein') + '</td></tr>');
+                                                $('tbody').prepend('<tr class=' + trcls + '><td>' + playcount + '</td><td>' + car + '</td><td>' + choice1 + '</td><td>' + choice2 + '</td><td>' + (change ? 'ja' : 'nein') + '</td><td>' + (win ? 'ja' : 'nein') + '</td></tr>');
                                                 var changewin = [];
                                                 changewin['change'] = change;
                                                 changewin['win'] = win;
