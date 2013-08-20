@@ -101,7 +101,8 @@
 
 
                         better = (changeWon > stayWon) ? 'wechseln' : 'bleiben';
-                        console.log(better)
+                        console.log(better);
+                        console.log((changeWon / (changeWon + stayWon)) * 100 + '%');
                         return better;
                     }
                     playcount = 0;
